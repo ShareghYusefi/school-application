@@ -1,2 +1,7 @@
 <!-- We can pass in the undergradStudents array to the undergrads component input property (undergradsList -->
-<undergrads [undergradsList]="undergradStudents"></undergrads>
+<!-- When childEventis emitted, we can respond with alert function in parent component -->
+<!-- $event is the reserved keyword that captures the event object and the data pased from the child component -->
+<undergrads
+  [undergradsList]="undergradStudents"
+  (childEvent)="alertMessage($event)"
+></undergrads>

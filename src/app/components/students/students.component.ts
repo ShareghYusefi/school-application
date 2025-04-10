@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'students',
   standalone: false,
   templateUrl: './students.component.html',
-  styleUrl: './students.component.css'
+  styleUrl: './students.component.css',
 })
 export class StudentsComponent {
   students = [
@@ -36,6 +36,12 @@ export class StudentsComponent {
   ];
 
   // get array of undergrad students
-  undergradStudents = this.students.filter(student => student.level === 'undergrad');
+  undergradStudents = this.students.filter(
+    (student) => student.level === 'undergrad'
+  );
 
+  text: any;
+  alertMessage(message: any) {
+    this.text = message;
+  }
 }
