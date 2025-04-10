@@ -1,8 +1,10 @@
 <h2>Undergrads</h2>
 <ul>
-  <li *ngFor="let undergrad of undergradsList">{{ undergrad.name }}</li>
+  <li *ngFor="let undergrad of undergradsList">
+    {{ undergrad.name }}
+    <!-- trigger function to emit data to parent component -->
+    <button class="btn btn-danger" (click)="delete(undergrad.id)">Delete</button>
+  </li>
 </ul>
-<!-- trigger function to emit data to parent component -->
-<button (click)="sendDataToParent()">Send Child Data to Parent</button>
 
 <pre>{{ undergradsList | json }}</pre>

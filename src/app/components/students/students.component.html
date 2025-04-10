@@ -3,5 +3,5 @@
 <!-- $event is the reserved keyword that captures the event object and the data pased from the child component -->
 <undergrads
   [undergradsList]="undergradStudents"
-  (childEvent)="alertMessage($event)"
+  (deleteEvent)="deleteStudent($event)"
 ></undergrads>

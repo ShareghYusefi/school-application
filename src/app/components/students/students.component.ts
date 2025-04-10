@@ -35,13 +35,25 @@ export class StudentsComponent {
     },
   ];
 
-  // get array of undergrad students
-  undergradStudents = this.students.filter(
-    (student) => student.level === 'undergrad'
-  );
+  getUndergradStudents() {
+    return this.students.filter((student) => student.level === 'undergrad');
+  }
 
-  text: any;
-  alertMessage(message: any) {
-    this.text = message;
+  // get array of undergrad students
+  undergradStudents = this.getUndergradStudents();
+
+  deleteStudent(id: number) {
+    // find index of student with given id
+    let index = this.students.findIndex((student) => student.id === id);
+    // index is -1 when no matching student is found
+    if (index === -1) {
+      return; // exit function if no matching student is found
+    }
+
+    // found student, remove it from the array
+    this.students.splice(index, 1);
+
+    // update undergrad students array
+    this.undergradStudents = this.getUndergradStudents();
   }
 }
