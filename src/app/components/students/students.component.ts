@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Student } from '../../student';
+import { SchoolService } from '../../school.service';
 
 @Component({
   selector: 'students',
@@ -7,33 +9,20 @@ import { Component } from '@angular/core';
   styleUrl: './students.component.css',
 })
 export class StudentsComponent {
-  students = [
-    {
-      id: 1,
-      name: 'John Doe',
-      level: 'undergrad',
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      level: 'postgrad',
-    },
-    {
-      id: 3,
-      name: 'Alice Johnson',
-      level: 'undergrad',
-    },
-    {
-      id: 4,
-      name: 'Bob Brown',
-      level: 'postgrad',
-    },
-    {
-      id: 5,
-      name: 'Charlie Black',
-      level: 'undergrad',
-    },
-  ];
+  // define students array for initialization in ngOnInit lifecycle hook
+  students: Student[] = [];
+
+  constructor(private schoolService: SchoolService) {}
+
+  // use ngOnInit to get students from schoolService
+  ngOnInit() {
+    // Since getStudents() returns an Observable, we need to subscribe to it to get the data
+    this.schoolService.getStudents().subscribe((response) => {
+      this.students = response; // assign the response to students array
+      // update undergrad students array
+      this.undergradStudents = this.getUndergradStudents();
+    });
+  }
 
   getUndergradStudents() {
     return this.students.filter((student) => student.level === 'undergrad');

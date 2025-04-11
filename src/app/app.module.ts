@@ -8,6 +8,7 @@ import { UndergradsComponent } from './components/undergrads/undergrads.componen
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     UndergradsComponent,
     NavbarComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule],
+  // HttpClientModule is imported here to make HTTP requests and provideHttpClient is used to provide the HttpClient service
+  providers: [provideHttpClient()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
