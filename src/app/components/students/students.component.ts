@@ -32,17 +32,22 @@ export class StudentsComponent {
   undergradStudents = this.getUndergradStudents();
 
   deleteStudent(id: number) {
-    // find index of student with given id
-    let index = this.students.findIndex((student) => student.id === id);
-    // index is -1 when no matching student is found
-    if (index === -1) {
-      return; // exit function if no matching student is found
-    }
+    // call deleteStudent method from schoolService to delete student by id
+    this.schoolService.deleteStudent(id).subscribe(
+      (response: Student) => {
+        // find student in students array using id field
+        let student = this.students.find((s) => s.id === response.id);
+        // if student is not found, return
+        if (!student) return;
 
-    // found student, remove it from the array
-    this.students.splice(index, 1);
-
-    // update undergrad students array
-    this.undergradStudents = this.getUndergradStudents();
+        // remove student from students array using splice method
+        this.students.splice(this.students.indexOf(student), 1);
+        // update undergrad students array
+        this.undergradStudents = this.getUndergradStudents();
+      },
+      (error) => {
+        console.log('Error deleting student:', error);
+      }
+    );
   }
 }
