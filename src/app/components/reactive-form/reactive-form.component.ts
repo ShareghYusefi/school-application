@@ -22,6 +22,7 @@ export class ReactiveFormComponent implements OnInit {
     // Create a form group with two form controls: name and name
     this.reactiveForm = this.formBuilderInstance.group({
       // We can use Validators to specify validation rules for each form control
+      id: [''],
       name: ['', [Validators.required, Validators.minLength(5)]],
       level: ['', [Validators.required, Validators.minLength(5)]],
     });
@@ -39,12 +40,13 @@ export class ReactiveFormComponent implements OnInit {
           (student: Student) => {
             // update form with student data
             this.reactiveForm.patchValue({
+              id: student.id,
               name: student.name,
               level: student.level,
             });
           },
           (error) => {
-            console.log('Error deleting student:', error);
+            console.log(error);
           }
         );
       }
@@ -60,7 +62,42 @@ export class ReactiveFormComponent implements OnInit {
     return this.reactiveForm.get('level');
   }
 
+  // handle form submission
   onSubmit() {
     console.log(this.reactiveForm.value);
+
+    // if form is invalid, return
+    if (this.reactiveForm.invalid) {
+      return;
+    }
+
+    // check if we have an id in the URL
+    let id = this.route.snapshot.paramMap.get('id');
+    // if we have an id, we can use it to update the student data
+    if (id) {
+      // update student data using API
+      this.schoolService
+        .updateStudent(parseInt(id), this.reactiveForm.value)
+        .subscribe(
+          (student: Student) => {
+            console.log('Student updated:', student);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    } else {
+      // create new student using API
+      this.schoolService.addStudent(this.reactiveForm.value).subscribe(
+        (student: Student) => {
+          console.log('Student updated:', student);
+          // reset form
+          this.reactiveForm.reset();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 }

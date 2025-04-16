@@ -45,7 +45,8 @@
     class="btn btn-primary"
     [disabled]="reactiveForm.invalid"
   >
-    Submit
+    <!-- Update if there is an id -->
+    {{ reactiveForm.value.id ? "Update" : "Submit" }}
   </button>
 </form>
 

@@ -19,10 +19,26 @@ export class SchoolService {
     return this.httpClientInstance.get<Student[]>(this.schoolUrl + '/students');
   }
 
-  // delete student by id
+  // get student by id
   getStudent(id: number): Observable<Student> {
     return this.httpClientInstance.get<Student>(
       this.schoolUrl + '/students/' + id
+    );
+  }
+
+  // add student
+  addStudent(student: Student): Observable<Student> {
+    return this.httpClientInstance.post<Student>(
+      this.schoolUrl + '/students',
+      student
+    );
+  }
+
+  // update student data
+  updateStudent(id: number, updatedStudent: Student): Observable<Student> {
+    return this.httpClientInstance.patch<Student>(
+      this.schoolUrl + '/students/' + id,
+      updatedStudent
     );
   }
 
