@@ -9,6 +9,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,9 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
     NavbarComponent,
     HomeComponent,
     NotFoundComponent,
+    ReactiveFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   // HttpClientModule is imported here to make HTTP requests and provideHttpClient is used to provide the HttpClient service
   providers: [provideHttpClient()],
   bootstrap: [AppComponent],

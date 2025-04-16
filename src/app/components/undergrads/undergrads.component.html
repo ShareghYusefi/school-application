@@ -2,8 +2,13 @@
 <ul>
   <li *ngFor="let undergrad of undergradsList">
     {{ undergrad.name }}
+    <a [routerLink]="['/students', undergrad.id]">
+      <button class="btn btn-primary">View</button>
+    </a>
     <!-- trigger function to emit data to parent component -->
-    <button class="btn btn-danger" (click)="delete(undergrad.id)">Delete</button>
+    <button class="btn btn-danger" (click)="delete(undergrad.id)">
+      Delete
+    </button>
   </li>
 </ul>
 

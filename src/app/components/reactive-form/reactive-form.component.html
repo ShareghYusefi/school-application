@@ -1,0 +1,53 @@
+<!-- We need to bind our component reactiveForm instance to the template form using the formGroup directive. -->
+<form [formGroup]="reactiveForm">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <!-- We need to bind our input to the form control using the formControlName directive. -->
+    <input
+      type="name"
+      class="form-control"
+      id="name"
+      aria-describedby="emailHelp"
+      formControlName="name"
+    />
+    <!-- ? means optional chaining. It will return undefined if the property does not exist. -->
+    <div
+      *ngIf="name?.touched && name?.invalid && name?.errors"
+      class="text-danger"
+    >
+      <div *ngIf="name?.errors?.['required']">Name is required.</div>
+      <div *ngIf="name?.errors?.['name']">Name is invalid.</div>
+      <div *ngIf="name?.errors?.['minlength']">
+        Please type a minimum of 5 characters.
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="level" class="form-label">Password</label>
+    <select type="level" class="form-select" id="level" formControlName="level">
+      <option value="">Select Level</option>
+      <option value="undergrad">Undergrad</option>
+      <option value="postgrad">Postgrad</option>
+    </select>
+    <div
+      *ngIf="level?.touched && level?.invalid && level?.errors"
+      class="text-danger"
+    >
+      <div *ngIf="level?.errors?.['required']">Password is required.</div>
+      <div *ngIf="level?.errors?.['minlength']">
+        Please type a minimum of 5 characters.
+      </div>
+    </div>
+  </div>
+  <button
+    type="submit"
+    (click)="onSubmit()"
+    class="btn btn-primary"
+    [disabled]="reactiveForm.invalid"
+  >
+    Submit
+  </button>
+</form>
+
+<h2>Reactive Form Value</h2>
+<pre>{{ reactiveForm.value | json }}</pre>

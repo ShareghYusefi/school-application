@@ -20,6 +20,13 @@ export class SchoolService {
   }
 
   // delete student by id
+  getStudent(id: number): Observable<Student> {
+    return this.httpClientInstance.get<Student>(
+      this.schoolUrl + '/students/' + id
+    );
+  }
+
+  // delete student by id
   deleteStudent(id: number): Observable<Student> {
     return this.httpClientInstance.delete<Student>(
       this.schoolUrl + '/students/' + id
