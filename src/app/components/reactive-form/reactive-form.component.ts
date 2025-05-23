@@ -64,6 +64,10 @@ export class ReactiveFormComponent implements OnInit {
     return this.reactiveForm.get('level');
   }
 
+  get age() {
+    return this.reactiveForm.get('age');
+  }
+
   // handle form submission
   onSubmit() {
     console.log(this.reactiveForm.value);
