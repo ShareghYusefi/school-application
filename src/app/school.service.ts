@@ -7,7 +7,7 @@ import { Student } from './student';
   providedIn: 'root',
 })
 export class SchoolService {
-  schoolUrl = 'http://localhost:3000';
+  schoolUrl = 'https://sequelize-api-1cur.onrender.com';
 
   // We can use HttpClient once provideHttpClient is imported in app.module.ts
   constructor(private httpClientInstance: HttpClient) {}
