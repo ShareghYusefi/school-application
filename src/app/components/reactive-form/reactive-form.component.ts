@@ -24,6 +24,7 @@ export class ReactiveFormComponent implements OnInit {
       // We can use Validators to specify validation rules for each form control
       id: [''],
       name: ['', [Validators.required, Validators.minLength(5)]],
+      age: ['', [Validators.required, Validators.min(1), Validators.max(100)]],
       level: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
@@ -42,6 +43,7 @@ export class ReactiveFormComponent implements OnInit {
             this.reactiveForm.patchValue({
               id: student.id,
               name: student.name,
+              age: student.age,
               level: student.level,
             });
           },

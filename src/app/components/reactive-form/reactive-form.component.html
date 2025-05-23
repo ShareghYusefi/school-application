@@ -22,6 +22,30 @@
       </div>
     </div>
   </div>
+  <!-- Age -->
+  <div class="mb-3">
+    <label for="age" class="form-label">Age</label>
+    <input
+      type="age"
+      class="form-control"
+      id="age"
+      aria-describedby="emailHelp"
+      formControlName="age"
+    />
+    <div
+      *ngIf="age?.touched && age?.invalid && age?.errors"
+      class="text-danger"
+    >
+      <div *ngIf="age?.errors?.['required']">Age is required.</div>
+      <div *ngIf="age?.errors?.['min']">
+        Age must be greater than or equal to 18.
+      </div>
+      <div *ngIf="age?.errors?.['max']">
+        Age must be less than or equal to 100.
+      </div>
+    </div>
+  </div>
+
   <div class="mb-3">
     <label for="level" class="form-label">Password</label>
     <select type="level" class="form-select" id="level" formControlName="level">
