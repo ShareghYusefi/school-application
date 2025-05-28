@@ -4,6 +4,7 @@ import { StudentsComponent } from './components/students/students.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  // login route
+  {
+    path: 'login',
+    component: LoginFormComponent,
   },
   {
     path: '',

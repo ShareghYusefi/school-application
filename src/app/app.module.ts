@@ -11,6 +11,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     NotFoundComponent,
     ReactiveFormComponent,
+    LoginFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   // HttpClientModule is imported here to make HTTP requests and provideHttpClient is used to provide the HttpClient service
