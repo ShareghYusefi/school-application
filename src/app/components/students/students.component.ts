@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Student } from '../../student';
-import { SchoolService } from '../../school.service';
+import { SchoolService } from '../../services/school.service';
 
 @Component({
   selector: 'students',
