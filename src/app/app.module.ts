@@ -8,10 +8,15 @@ import { UndergradsComponent } from './components/undergrads/undergrads.componen
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { authInterceptor } from './middlewares/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,10 +28,11 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     NotFoundComponent,
     ReactiveFormComponent,
     LoginFormComponent,
+    RegisterFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   // HttpClientModule is imported here to make HTTP requests and provideHttpClient is used to provide the HttpClient service
-  providers: [provideHttpClient()],
+  providers: [provideHttpClient(withInterceptors([authInterceptor]))],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

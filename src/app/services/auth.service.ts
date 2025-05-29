@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private apiUrl = 'http://localhost:3000'; // Adjust port if needed
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Login: send credentials, store JWT on success
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password });
   }
+  // Register: send user data, store JWT on success
+  register(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, { email, password });
+  }
 
   // Logout: remove JWT from localStorage
   logout(): void {
     localStorage.removeItem('jwt_token');
+    // redirect to login page or home page
   }
 
   // Get JWT token from localStorage

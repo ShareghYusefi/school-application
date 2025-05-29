@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginFormComponent,
+  },
+  // register route
+  {
+    path: 'register',
+    component: RegisterFormComponent,
   },
   {
     path: '',
