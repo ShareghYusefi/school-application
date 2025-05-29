@@ -21,7 +21,28 @@
           <a class="nav-link" routerLink="students">Students</a>
         </li>
       </ul>
-      <button class="btn btn-outline-primary" routerLink="login">Login</button>
+      <button
+        *ngIf="!isLoggedIn"
+        class="btn btn-outline-primary"
+        routerLink="login"
+      >
+        Login
+      </button>
+      <button
+        *ngIf="!isLoggedIn"
+        class="btn btn-outline-secondary ms-2"
+        routerLink="register"
+      >
+        Register
+      </button>
+      <!-- logout button -->
+      <button
+        *ngIf="isLoggedIn"
+        (click)="logout()"
+        class="btn btn-outline-danger ms-2"
+      >
+        Logout
+      </button>
     </div>
   </div>
 </nav>
