@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -12,21 +13,23 @@ export class NavbarComponent {
   email: string = '';
   password: string = '';
   isLoggedIn: boolean = false;
+  // subscribe to the isLoggedIn$ observable from AuthService to get the current login state
+  // private loginStatusSub!: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // Check if user is logged in when the component initializes
-    this.isLoggedIn = this.authService.isLoggedIn();
+    // Subscribe to the isLoggedIn$ observable to get the current login state
+    this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   login() {
     this.authService.login(this.email, this.password).subscribe({
       // next is the success callback
       next: (response) => {
-        // Store the JWT token in localStorage within the browser
-        localStorage.setItem('jwt_token', response.token);
-        this.isLoggedIn = true;
+        console.log('Login successful', response);
       },
       error: (error) => {
         console.error('Login failed', error);

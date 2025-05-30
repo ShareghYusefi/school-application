@@ -1,19 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000'; // Adjust port if needed
+  // BehaviorSubject tracks the returned state from isLoggedIn()
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+  // Observable variable to expose the isLoggedIn state for subscribers
+  public isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   // Login: send credentials, store JWT on success
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { email, password });
+    return (
+      this.http
+        .post<{ message: string; token: string }>(`${this.apiUrl}/login`, {
+          email,
+          password,
+        })
+        // pipe is used to handle the response and update the login state
+        .pipe(
+          // tap operator allows us to perform side effects, like updating the login state
+          tap((response: { message: string; token: string }) => {
+            if (response && response.token) {
+              // Store the JWT token in localStorage
+              localStorage.setItem('jwt_token', response.token);
+              // Update the login state
+              this.isLoggedInSubject.next(true);
+            }
+          })
+        )
+    );
   }
   // Register: send user data, store JWT on success
   register(email: string, password: string): Observable<any> {
