@@ -6,6 +6,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'students',
     component: StudentsComponent,
+    canActivate: [authGuard], // Add your auth guard here if needed
   },
   {
     path: 'home',
