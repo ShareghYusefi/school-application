@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000'; // Adjust port if needed
+  private apiUrl = environment.apiUrl;
   // BehaviorSubject tracks the returned state from isLoggedIn()
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
   // Observable variable to expose the isLoggedIn state for subscribers

@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../student';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SchoolService {
   // schoolUrl = 'https://sequelize-api-1cur.onrender.com';
-  schoolUrl = 'http://localhost:3000'; // Use this for local development
+  schoolUrl = environment.apiUrl;
 
   // We can use HttpClient once provideHttpClient is imported in app.module.ts
   constructor(private httpClientInstance: HttpClient) {}

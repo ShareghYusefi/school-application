@@ -23,6 +23,7 @@ export class RegisterFormComponent {
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
       },
+      // custom validator runs after all other validators to check fields of interest within the form group
       { validators: this.passwordMatchValidator }
     );
   }
