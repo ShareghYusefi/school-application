@@ -23,6 +23,7 @@ export class ReactiveFormComponent implements OnInit {
     this.reactiveForm = this.formBuilderInstance.group({
       // We can use Validators to specify validation rules for each form control
       id: [''],
+      avatar: [null, [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(5)]],
       age: ['', [Validators.required, Validators.min(1), Validators.max(100)]],
       level: ['', [Validators.required, Validators.minLength(5)]],
@@ -68,6 +69,25 @@ export class ReactiveFormComponent implements OnInit {
     return this.reactiveForm.get('age');
   }
 
+  get avatar() {
+    return this.reactiveForm.get('avatar');
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      // update reactive form with the file name
+      this.reactiveForm.patchValue({
+        // we can store the avatar file name in our database
+        avatar: file,
+      });
+      // check the updateValueAndValidity method to update the form control's value and validity
+      // this is useful when we want to update the form control's value and validity after changing the value programmatically
+      this.avatar?.updateValueAndValidity();
+    }
+  }
+
   // handle form submission
   onSubmit() {
     console.log(this.reactiveForm.value);
@@ -77,24 +97,42 @@ export class ReactiveFormComponent implements OnInit {
       return;
     }
 
+    // create formData object to allow file upload
+    const formData = new FormData();
+    // append form values to formData
+    // for (const key in this.reactiveForm.value) {
+    //   if (this.reactiveForm.value.hasOwnProperty(key)) {
+    //     formData.append(key, this.reactiveForm.value[key]);
+    //   }
+    // }
+
+    formData.append('id', this.reactiveForm.value.id);
+    formData.append('name', this.reactiveForm.value.name);
+    formData.append('age', this.reactiveForm.value.age);
+    formData.append('level', this.reactiveForm.value.level);
+
+    // append the avatar file to formData
+    const avatarFile = this.reactiveForm.get('avatar')?.value;
+    if (avatarFile && avatarFile instanceof File) {
+      formData.append('avatar', avatarFile);
+    }
+
     // check if we have an id in the URL
     let id = this.route.snapshot.paramMap.get('id');
     // if we have an id, we can use it to update the student data
     if (id) {
       // update student data using API
-      this.schoolService
-        .updateStudent(parseInt(id), this.reactiveForm.value)
-        .subscribe(
-          (student: Student) => {
-            console.log('Student updated:', student);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      this.schoolService.updateStudent(parseInt(id), formData).subscribe(
+        (student: Student) => {
+          console.log('Student updated:', student);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     } else {
       // create new student using API
-      this.schoolService.addStudent(this.reactiveForm.value).subscribe(
+      this.schoolService.addStudent(formData).subscribe(
         (student: Student) => {
           console.log('Student updated:', student);
           // reset form

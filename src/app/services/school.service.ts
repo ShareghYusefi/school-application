@@ -29,7 +29,7 @@ export class SchoolService {
   }
 
   // add student
-  addStudent(student: Student): Observable<Student> {
+  addStudent(student: Student | FormData): Observable<Student> {
     return this.httpClientInstance.post<Student>(
       this.schoolUrl + '/students',
       student
@@ -37,7 +37,10 @@ export class SchoolService {
   }
 
   // update student data
-  updateStudent(id: number, updatedStudent: Student): Observable<Student> {
+  updateStudent(
+    id: number,
+    updatedStudent: Student | FormData
+  ): Observable<Student> {
     return this.httpClientInstance.patch<Student>(
       this.schoolUrl + '/students/' + id,
       updatedStudent

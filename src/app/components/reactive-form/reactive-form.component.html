@@ -1,5 +1,23 @@
 <!-- We need to bind our component reactiveForm instance to the template form using the formGroup directive. -->
-<form [formGroup]="reactiveForm">
+<form [formGroup]="reactiveForm" enctype="multipart/form-data">
+  <!-- Avatar -->
+  <div class="mb-3">
+    <label for="avatar" class="form-label">Avatar</label>
+    <input
+      type="file"
+      class="form-control"
+      id="avatar"
+      aria-describedby="emailHelp"
+      (change)="onFileSelected($event)"
+    />
+    <div
+      *ngIf="avatar?.touched && avatar?.invalid && avatar?.errors"
+      class="text-danger"
+    >
+      <div *ngIf="avatar?.errors?.['required']">Avatar is required.</div>
+    </div>
+  </div>
+
   <div class="mb-3">
     <label for="name" class="form-label">Name</label>
     <!-- We need to bind our input to the form control using the formControlName directive. -->
